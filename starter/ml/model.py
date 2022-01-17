@@ -3,8 +3,9 @@ from sklearn.model_selection import GridSearchCV
 
 import pandas as pd
 from typing import Dict
-from config import logger
+import logging
 
+logger = logging.getLogger("root")
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train, model, hyperparameters=None):
     """

@@ -11,11 +11,6 @@ DATA_DIR = pathlib.Path(PACKAGE_ROOT / "data")
 MODEL_DIR = pathlib.Path(PACKAGE_ROOT / "model")
 LOGS_DIR = pathlib.Path(PACKAGE_ROOT / "logs")
 
-
-
-# Local stores
-
-
 # Create dirs
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
