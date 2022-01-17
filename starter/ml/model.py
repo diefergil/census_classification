@@ -1,9 +1,12 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.model_selection import GridSearchCV
+
 import pandas as pd
 from typing import Dict
+from config import logger
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train, y_train, model):
+def train_model(X_train, y_train, model, hyperparameters=None):
     """
     Trains a machine learning model and returns it.
     Inputs
@@ -18,7 +21,14 @@ def train_model(X_train, y_train, model):
     model
         Trained machine learning model.
     """
-    model.fit(X_train, y_train)
+    if hyperparameters:
+        logger.info("Tuning model")
+        grid_search = GridSearchCV(estimator=model, param_grid=hyperparameters, cv=3, scoring='f1')
+        grid_search.fit(X_train, y_train)
+        model = grid_search.best_estimator_
+        logger.info("Best params in grid_search: %s", grid_search.best_params_)
+    else:
+        model.fit(X_train, y_train)
     
     return model
 
