@@ -4,7 +4,7 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-from starter.config import DATA_DIR
+from starter.config import DATA_DIR, CAT_FEATURES
 
 import pytest
 import pandas as pd
@@ -22,16 +22,7 @@ def data():
 
 @pytest.fixture(scope='session')
 def cat_features():
-    return [
-        "workclass",
-        "education",
-        "marital-status",
-        "occupation",
-        "relationship",
-        "race",
-        "sex",
-        "native-country",
-    ]
+    return CAT_FEATURES
 
 @pytest.fixture(scope='session')
 def processed_output(data, cat_features):
