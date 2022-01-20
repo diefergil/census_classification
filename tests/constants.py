@@ -37,3 +37,41 @@ def processed_output(data, cat_features):
         "encoder": encoder,
         "lb": lb
     }
+    
+@pytest.fixture(scope='session')
+def positive_example():
+    return {
+        "age":47,
+        "workclass":"Self-emp-inc",
+        "fnlgt":181130,
+        "education":"Prof-school",
+        "education-num":15,
+        "marital-status":"Married-civ-spouse",
+        "occupation":"Prof-specialty",
+        "relationship":"Husband",
+        "race":"White",
+        "sex":"Male",
+        "capital-gain":99999,
+        "capital-loss":0,
+        "hours-per-week":50,
+        "native-country":"United-States"
+        }
+    
+@pytest.fixture(scope='session')
+def negative_example():
+    return {
+        "age":20,
+        "workclass":"?",
+        "fnlgt":133515,
+        "education":"Some-college",
+        "education-num":10,
+        "marital-status":"Never-married",
+        "occupation":"?",
+        "relationship":"Own-child",
+        "race":"White",
+        "sex":"Female",
+        "capital-gain":0,
+        "capital-loss":0,
+        "hours-per-week":15,
+        "native-country":"France"
+    }
