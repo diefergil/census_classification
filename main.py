@@ -13,9 +13,9 @@ from starter.config import MODEL_DIR, CAT_FEATURES, logger
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
     if os.system("dvc pull") != 0:
-        sys.exit("dvc pull failed")
+        exit("dvc pull failed")
     os.system("rm -r .dvc .apt/usr/lib/dvc")
-
+    
 # Load utils
 model = joblib.load(MODEL_DIR / "model.pkl")
 encoder = joblib.load(MODEL_DIR / "encoder.pkl")
