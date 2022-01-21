@@ -15,7 +15,7 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     if os.system("dvc pull") != 0:
         exit("dvc pull failed")
     os.system("rm -r .dvc .apt/usr/lib/dvc")
-
+    
 # Load utils
 model = joblib.load(MODEL_DIR / "model.pkl")
 encoder = joblib.load(MODEL_DIR / "encoder.pkl")
