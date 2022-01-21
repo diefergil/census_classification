@@ -1,3 +1,5 @@
+import os
+import sys
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import joblib
@@ -5,6 +7,14 @@ import pandas as pd
 import numpy as np
 from starter.ml.model import inference
 from starter.config import MODEL_DIR, CAT_FEATURES, logger
+
+# give Heroku the ability to pull in data from DVC upon app start up.
+# uses buildpack
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        sys.exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 # Load utils
 model = joblib.load(MODEL_DIR / "model.pkl")

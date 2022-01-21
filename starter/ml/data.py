@@ -1,6 +1,8 @@
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
+import logging
 
+logger = logging.getLogger("root")
 
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
@@ -48,7 +50,6 @@ def process_data(
 
     X_categorical = X[categorical_features].values
     X_continuous = X.drop(*[categorical_features], axis=1)
-
     if training is True:
         encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
         lb = LabelBinarizer()
