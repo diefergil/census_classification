@@ -18,6 +18,10 @@ data_input = {
         "native-country":"France"
     }
 
-r = requests.post("http://127.0.0.1:8000/predict/", data=json.dumps(data_input))
+#r = requests.post("http://127.0.0.1:8000/predict/", data=json.dumps(data_input))
+#print(r.json())
+
+
+r = requests.post('https://census-classification.herokuapp.com/predict/', data=json.dumps(data_input))
 
 print(r.json())

@@ -1,5 +1,6 @@
 # Script to train machine learning model.
 from sklearn.model_selection import train_test_split
+import json
 # Add the necessary imports for the starter code.
 import pandas as pd
 from ml.data import process_data
@@ -52,9 +53,13 @@ logger.info("Test metrics: %s", test_metrics)
 train["y_true"]=lb.transform(train["salary"]).ravel()
 train["y_pred"]=train_preds
 
+logger.info("Saving categorical slice performance in %s", MODEL_DIR)
 train_slice_performance = dict()
 for group in cat_features:
     train_slice_performance[group]=ml_model.calculate_slice_performance(train, group, "y_true","y_pred" )
+    
+with open(MODEL_DIR / 'slice_output.txt', 'w') as file:
+     file.write(json.dumps(train_slice_performance))
 
 logger.info("Saving  model outputs in: %s", MODEL_DIR)
 joblib.dump(model, MODEL_DIR / "model.pkl")
