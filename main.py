@@ -15,12 +15,6 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
     if os.system("dvc pull") != 0:
         exit("dvc pull failed")
     os.system("rm -r .dvc .apt/usr/lib/dvc")
-    
-# Load utils
-model = joblib.load(MODEL_DIR / "model.pkl")
-encoder = joblib.load(MODEL_DIR / "encoder.pkl")
-label_binarizer = joblib.load(MODEL_DIR / "label_binarizer.pkl")
-categorical_features=CAT_FEATURES
 
 
 class InputData(BaseModel):
@@ -46,6 +40,16 @@ class InputData(BaseModel):
     class Config:
         allow_population_by_field_name = True
 
+app = FastAPI()
+
+# Load utils
+@app.on_event("startup")
+def startup_event(): 
+    global model, encoder, label_binarizer, categorical_features
+    model = joblib.load(MODEL_DIR / "model.pkl")
+    encoder = joblib.load(MODEL_DIR / "encoder.pkl")
+    label_binarizer = joblib.load(MODEL_DIR / "label_binarizer.pkl")
+    categorical_features=CAT_FEATURES
 
 def make_prediction(message, model, encoder):
     try:
@@ -65,9 +69,6 @@ def make_prediction(message, model, encoder):
     
     return prediction_str
 
-
-    
-app = FastAPI()
 
 @app.get("/")
 async def root():

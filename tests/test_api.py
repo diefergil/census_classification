@@ -21,12 +21,14 @@ def test_api_locally_get_root():
     assert r.status_code == 200
     
 def test_api_negative_example(negative_example):
-    r = client.post("/predict/", data=json.dumps(negative_example))
-    assert r.json() == {'prediction': '<=50K'}
+    with TestClient(app) as client: # need when use startup and shutdown
+        r = client.post("/predict/", data=json.dumps(negative_example))
+        assert r.json() == {'prediction': '<=50K'}
     
 def test_api_positive_example(positive_example):
-    r = client.post("/predict/", data=json.dumps(positive_example))
-    assert r.json() == {'prediction': '>50K'}
+    with TestClient(app) as client:
+        r = client.post("/predict/", data=json.dumps(positive_example))
+        assert r.json() == {'prediction': '>50K'}
     
 # def test_get_path():
 #     r = client.get("/items/42")

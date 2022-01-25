@@ -25,3 +25,9 @@ The evaluation data (test) has been selected using a random selector and represe
 * Best params in grid_search: {'max_depth': 18, 'n_estimators': 800}
 * Train metrics: {'precision': 0.8922475837960107, 'recall': 0.6947958366693354, 'fbeta': 0.7812387468491178}
 * Test metrics: {'precision': 0.792046396023198, 'recall': 0.5989974937343359, 'fbeta': 0.6821262932572244}
+
+## Ethical Considerations
+
+Currently, the model contains detailed information such as the person's gender. As the model does not make decisions about the life of the subject, they are variables that can be used as predictors and even to quantify in a certain way their impact on the data set.
+## Caveats and Recommendations
+The model has only basic cleanup and limited preprocessing. It would be interesting to use more sophisticated techniques such as ´Label encoder´ for categorical variables.
