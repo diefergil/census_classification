@@ -24,4 +24,5 @@ data_input = {
 
 r = requests.post('https://census-classification.herokuapp.com/predict/', data=json.dumps(data_input))
 
-print(r.json())
+print("result:\n", r.json())
+print("status code:",r.status_code)
